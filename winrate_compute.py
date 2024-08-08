@@ -211,6 +211,7 @@ def main(args):
     model_name = args.model_name
     scenario = args.scenario
     file_list = f"file_list_{model_name}_{data_type}_{scenario}"
+    file_list = globals()[file_list]
     if args.scenario == "rag":
         win_rate_rag(file_list)
     elif args.scenario == "memorization":

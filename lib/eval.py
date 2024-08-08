@@ -7,7 +7,7 @@ from tqdm import tqdm
 import re
 from tqdm import tqdm
 import dataportraits
-from lib.decoding_intervention import DataPortraitsLogitsProcessor
+from lib.decoding_intervention import DataPortraitsLogitsProcessor, TopKPerturbationLogitsProcessor
 import sys
 import json
 sys.path.append("./lib")
@@ -128,6 +128,12 @@ def eval_booksum(args, model, tokenizer, num_sampled=200, bloom_filter=None, spl
             if context_len > 3500:
                 print("find examples with context length > 3500, continue")
                 continue
+            std = args.std
+            def new_logits_processor(*args, **kwargs):
+                prior = prior_processor(*args, **kwargs)
+                prior.append(TopKPerturbationLogitsProcessor(tokenizer, model, std))
+                return prior
+            model._get_logits_processor = new_logits_processor
             generate_ids = model.generate(inputs.input_ids, max_new_tokens=500, do_sample=False, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id, attention_mask=inputs.attention_mask)
         elif 'sys_prompt' in args.intervention:
             system_prompt_choice = args.intervention.split('-')[-1]
@@ -269,6 +275,12 @@ def eval_mmlu(args, model, tokenizer, num_sampled=200, bloom_filter=None):
                 if context_len > 3500:
                     print("find examples with context length > 3500, continue")
                     continue
+                std = args.std
+                def new_logits_processor(*args, **kwargs):
+                    prior = prior_processor(*args, **kwargs)
+                    prior.append(TopKPerturbationLogitsProcessor(tokenizer, model, std))
+                    return prior
+                model._get_logits_processor = new_logits_processor
                 generate_ids = model.generate(inputs.input_ids, max_new_tokens=5, do_sample=False, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id, attention_mask=inputs.attention_mask)
             elif 'sys_prompt' in args.intervention:
                 system_prompt_choice = args.intervention.split('-')[-1]

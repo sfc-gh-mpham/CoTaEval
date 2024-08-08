@@ -132,6 +132,7 @@ def run_completions(model_name, model, tokenizer, testing_chunks, context_len, c
                 prior.append(TopKPerturbationLogitsProcessor(tokenizer, model, std))
                 return prior
             model._get_logits_processor = new_logits_processor
+   
             time_start = timeit.default_timer()
             generate_ids = model.generate(inputs.input_ids, max_new_tokens=completion_len, do_sample=False, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id, attention_mask=inputs.attention_mask)
             time_end = timeit.default_timer()
@@ -327,6 +328,9 @@ def main(args):
     agg_res['context_len'] = context_len
     agg_res['completion_len'] = completion_len
     
+    if args.intervention != 'cad':
+        model.generation_config.context_aware_decoding_alpha = None # Here we add this to avoid error for the non-cad situation.
+    model.generation_config.mem_free_new = False
     
     # Evaluate infringement
     if args.eval_infringement:
