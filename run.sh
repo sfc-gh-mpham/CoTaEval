@@ -1,4 +1,4 @@
-python main.py --model_name llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype newsqa --intervention --intervention top_k --std 3.0 --eval_infringement
+python main.py --model_name llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype newsqa --intervention top_k --std 3.0 --eval_infringement
 python main.py --model_name llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype newsqa --intervention sys_prompt-bing --eval_infringement
-python main.py --model_name llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype booksum --intervention --intervention top_k --std 3.0 --eval_infringement
-python main.py --model_name llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype booksum --intervention sys_prompt-bing --eval_infringement
+python main.py --model_name llama2-7b-chat-hf --num_test 500 --context_len 200 --completion_len 200 --datatype booksum --intervention top_k --std 3.0 --eval_infringement
+python main.py --model_name llama2-7b-chat-hf --num_test 500 --context_len 200 --completion_len 200 --datatype booksum --intervention sys_prompt-bing --eval_infringement

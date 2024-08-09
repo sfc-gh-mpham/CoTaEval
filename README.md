@@ -74,11 +74,11 @@ cd data-portraits
 python easy_redis.py --shutdown
 python easy_redis.py --start-from-dir your/path/to/bloom_filter/${datatype}_tokenized/$ngram
 cd ..
-python main.py --model llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype newsqa --intervention memfree_tokenized_consecutive --n 6 --eval_zero_shot --eval_general --eval_infringement
+python main.py --model llama2-7b-chat-hf --num_test 1000 --context_len 200 --completion_len 200 --datatype newsqa --intervention mem_free_tokenized-consecutive --n 6 --eval_zero_shot --eval_general --eval_infringement
 ```
 For details on how to create the bloom filter using Data Portraits, please refer to [memfree_usage.md](https://github.com/boyiwei/CoTaEval/blob/main/data-portraits/memfree_usage.md)
 
-When evaluating Memfree, we need to specify ``--intervention`` as ``mem_free_tokenized_consecutive``, and specitfy ``--n``, which is the size of $n$-gram stored in the bloom filter.
+When evaluating Memfree, we need to specify ``--intervention`` as ``mem_free_tokenized-consecutive``, and specitfy ``--n``, which is the size of $n$-gram stored in the bloom filter.
 #### Top-K perturbation
 When evaluating top-k perturbation, we need to specify ``--intervention`` as ``top_k``, and specify ``--std``, which is the standard deviation of the Gaussian noise added to the logits distribution.
 

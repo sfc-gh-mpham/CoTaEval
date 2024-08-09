@@ -8,6 +8,7 @@ import argparse
 
 def process_sentence(sentence):
     # Convert to lower case
+    sentence = str(sentence)
     sentence = sentence.lower()
     translator = str.maketrans('', '', string.punctuation)
     sentence = sentence.translate(translator)
@@ -105,6 +106,8 @@ def add_metrics(res):
     for j in range(len(gts)):
         output = outputs[j]
         gt = gts[j]
+        output = str(output)
+        gt = str(gt)
         _, _, max_length, total_length = find_common_sequences([output], gt)
         levenshtein_dist = Levenshtein.distance(output, gt)
         min_hash_sim = compute_min_hash_similarity(output, gt)
@@ -112,7 +115,7 @@ def add_metrics(res):
         acs_word.append(total_length)
         levenshtein_distance.append(levenshtein_dist)
         min_hash_similarity.append(min_hash_sim)
-        
+ 
     res['LCS(word)'] = lcs_word
     res['ACS(word)'] = acs_word
     res['Levenshtein Distance'] = levenshtein_distance

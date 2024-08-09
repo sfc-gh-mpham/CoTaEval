@@ -1,4 +1,6 @@
 from dataportraits import datasketch
+print(datasketch.__file__)
+# assert 0
 import dataportraits.utils as utils
 import subprocess
 import pandas as pd
@@ -67,15 +69,16 @@ def main(args):
 
     # check whether the path exists
     if args.tokenized:
-        if not os.path.exists(f'/your/path/bloom_filters/{datatype}_tokenized/{n}'):
-            os.makedirs(f'/your/path/bloom_filters/{datatype}_tokenized/{n}')
-        path = f'/your/path/bloom_filters/{datatype}_tokenized/{n}/{bf_name}'
-        r.to_file(path=path, verbose=False) #verbose: Show the progress.
+        if not os.path.exists(f'/home/yak/CoTaEval/bloom_filters/{datatype}_tokenized/{n}'):
+            os.makedirs(f'/home/yak/CoTaEval/bloom_filters/{datatype}_tokenized/{n}')
+        path = f'/home/yak/CoTaEval/bloom_filters/{datatype}_tokenized/{n}/{bf_name}'
+        print("MP path", path)
+        r.to_file(path, False) #verbose: Show the progress.
     else:
-        if not os.path.exists(f'/your/path/bloom_filters/{datatype}/{n}'):
-            os.makedirs(f'/your/path/bloom_filters/{datatype}/{n}')
-        path = f'/your/path/bloom_filters/{datatype}/{n}/{bf_name}'
-        r.to_file(path=path, verbose=False) #verbose: Show the progress.
+        if not os.path.exists(f'/home/yak/CoTaEval/bloom_filters/{datatype}/{n}'):
+            os.makedirs(f'/home/yak/CoTaEval/bloom_filters/{datatype}/{n}')
+        path = f'/home/yak/CoTaEval/bloom_filters/{datatype}/{n}/{bf_name}'
+        r.to_file(path, False) #verbose: Show the progress.
 
 
 if __name__ == "__main__":

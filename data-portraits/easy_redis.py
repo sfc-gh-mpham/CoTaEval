@@ -32,7 +32,8 @@ def start_redis(args):
                 redis_client.ping()
                 print(f"started redis at {redis_uri}", file=sys.stderr)
                 return # we started and can exit
-            except:
+            except Exception as e:
+                print("MP error", e)
                 print(proc.stderr.decode('utf-8'), file=sys.stderr)
 
                 raise Exception("Failed to start redis")
